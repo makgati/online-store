@@ -3,6 +3,8 @@ package com.mycomoany.store.web.rest;
 import com.mycomoany.store.StoreApp;
 
 import com.mycomoany.store.domain.OrderItem;
+import com.mycomoany.store.domain.Product;
+import com.mycomoany.store.domain.ProductOrder;
 import com.mycomoany.store.repository.OrderItemRepository;
 import com.mycomoany.store.service.OrderItemService;
 import com.mycomoany.store.web.rest.errors.ExceptionTranslator;
@@ -95,6 +97,16 @@ public class OrderItemResourceIntTest {
             .quantity(DEFAULT_QUANTITY)
             .totalPrice(DEFAULT_TOTAL_PRICE)
             .status(DEFAULT_STATUS);
+        // Add required entity
+        Product product = ProductResourceIntTest.createEntity(em);
+        em.persist(product);
+        em.flush();
+        orderItem.setProduct(product);
+        // Add required entity
+        ProductOrder productOrder = ProductOrderResourceIntTest.createEntity(em);
+        em.persist(productOrder);
+        em.flush();
+        orderItem.setOrder(productOrder);
         return orderItem;
     }
 

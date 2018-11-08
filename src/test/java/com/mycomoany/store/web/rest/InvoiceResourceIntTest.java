@@ -3,6 +3,7 @@ package com.mycomoany.store.web.rest;
 import com.mycomoany.store.StoreApp;
 
 import com.mycomoany.store.domain.Invoice;
+import com.mycomoany.store.domain.ProductOrder;
 import com.mycomoany.store.repository.InvoiceRepository;
 import com.mycomoany.store.service.InvoiceService;
 import com.mycomoany.store.web.rest.errors.ExceptionTranslator;
@@ -110,6 +111,11 @@ public class InvoiceResourceIntTest {
             .paymentMethod(DEFAULT_PAYMENT_METHOD)
             .paymentDate(DEFAULT_PAYMENT_DATE)
             .paymentAmount(DEFAULT_PAYMENT_AMOUNT);
+        // Add required entity
+        ProductOrder productOrder = ProductOrderResourceIntTest.createEntity(em);
+        em.persist(productOrder);
+        em.flush();
+        invoice.setOrder(productOrder);
         return invoice;
     }
 
