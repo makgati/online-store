@@ -3,6 +3,7 @@ package com.mycomoany.store.web.rest;
 import com.mycomoany.store.StoreApp;
 
 import com.mycomoany.store.domain.Customer;
+import com.mycomoany.store.domain.User;
 import com.mycomoany.store.repository.CustomerRepository;
 import com.mycomoany.store.service.CustomerService;
 import com.mycomoany.store.web.rest.errors.ExceptionTranslator;
@@ -118,6 +119,11 @@ public class CustomerResourceIntTest {
             .addressLine2(DEFAULT_ADDRESS_LINE_2)
             .city(DEFAULT_CITY)
             .country(DEFAULT_COUNTRY);
+        // Add required entity
+        User user = UserResourceIntTest.createEntity(em);
+        em.persist(user);
+        em.flush();
+        customer.setUser(user);
         return customer;
     }
 
